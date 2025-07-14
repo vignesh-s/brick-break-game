@@ -8,7 +8,7 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
-  base: '/brick-breaker-game/',
+  base: '/brick-break-game/',
   test: {
     environment: 'jsdom',
     globals: true,
