@@ -2,6 +2,8 @@
 
 A modern web-based implementation of the classic Brick Breaker game built with React, TypeScript, and HTML5 Canvas.
 
+**[🎮 Play the game here!](https://vignesh-s.github.io/brick-break-game/)**
+
 ## 🎮 Game Features
 
 - **Classic Gameplay**: Break bricks by bouncing a ball with a paddle
