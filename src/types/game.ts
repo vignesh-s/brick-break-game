@@ -40,8 +40,8 @@ export interface GameState {
   paddle: Paddle;
   bricks: Brick[];
   score: number;
-  lives: number;
-  level: number;
+
+
   status: GameStatus;
 }
 

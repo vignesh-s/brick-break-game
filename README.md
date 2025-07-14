@@ -34,7 +34,7 @@ The game follows SOLID principles with a modular, extensible architecture:
 
 - `GameEngine`: Main game logic and state management
 - `Canvas`: Rendering component for game objects
-- `GameHeader`: Displays score, lives, and level
+- `GameHeader`: Displays score
 - `GameMenu`: Game state controls and overlays
 
 ### Game Entities
@@ -95,7 +95,7 @@ pnpm run deploy      # Deploy to GitHub Pages
 The architecture supports easy extension for:
 
 - **Power-ups**: Multi-ball, paddle resize, sticky ball
-- **Level progression**: Different brick layouts and difficulty
+
 - **Sound effects**: Audio feedback for collisions and events
 - **Local storage**: High score persistence
 - **Mobile gestures**: Touch and swipe controls
@@ -108,9 +108,8 @@ The architecture supports easy extension for:
    - Red bricks: 10 points
    - Orange bricks: 20 points
    - Green bricks: 30 points
-3. **Lives**: Start with 3 lives, lose one when ball falls below paddle
-4. **Win**: Clear all bricks to advance to next level
-5. **Game Over**: Run out of lives
+3. **Win**: Clear all bricks to win the game.
+4. **Game Over**: The game ends if the ball falls below the paddle.
 
 ## 📱 Browser Support
 

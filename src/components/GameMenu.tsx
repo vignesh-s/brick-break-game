@@ -1,12 +1,10 @@
 import React from "react";
-import { Play, Pause, RotateCcw } from "lucide-react";
+import { Play } from "lucide-react";
 import { GameStatus } from "../types/game";
 
 interface GameMenuProps {
   gameStatus: GameStatus;
   onStart: () => void;
-  onPause: () => void;
-  onRestart: () => void;
 }
 
 /**
@@ -15,8 +13,6 @@ interface GameMenuProps {
 export const GameMenu: React.FC<GameMenuProps> = ({
   gameStatus,
   onStart,
-  onPause,
-  onRestart,
 }) => {
   const renderStartScreen = () => (
     <div className="text-center p-4">
@@ -45,13 +41,7 @@ export const GameMenu: React.FC<GameMenuProps> = ({
       <p className="text-sm lg:text-base text-gray-300 mb-6">
         Better luck next time!
       </p>
-      <button
-        onClick={onRestart}
-        className="flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-      >
-        <RotateCcw className="w-5 h-5" />
-        <span>Play Again</span>
-      </button>
+
     </div>
   );
 
@@ -63,36 +53,12 @@ export const GameMenu: React.FC<GameMenuProps> = ({
       <p className="text-sm lg:text-base text-gray-300 mb-6">
         You cleared all the bricks!
       </p>
-      <button
-        onClick={onRestart}
-        className="flex items-center justify-center space-x-2 bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
-      >
-        <Play className="w-5 h-5" />
-        <span>Play Again</span>
-      </button>
+
     </div>
   );
 
   const renderGameControls = () => (
     <div className="flex flex-row justify-center items-center space-x-4 w-full">
-      <button
-        onClick={gameStatus === "playing" ? onPause : onStart}
-        className="flex-1 lg:flex-none lg:w-auto flex items-center justify-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
-      >
-        {gameStatus === "playing" ? (
-          <Pause className="w-4 h-4" />
-        ) : (
-          <Play className="w-4 h-4" />
-        )}
-        <span>{gameStatus === "playing" ? "Pause" : "Resume"}</span>
-      </button>
-      <button
-        onClick={onRestart}
-        className="flex-1 lg:flex-none lg:w-auto flex items-center justify-center space-x-2 bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors"
-      >
-        <RotateCcw className="w-4 h-4" />
-        <span>Restart</span>
-      </button>
     </div>
   );
 

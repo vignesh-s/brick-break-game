@@ -48,7 +48,10 @@ export const GameEngine: React.FC = () => {
     const newPaddleWidth = canvasSize.width * 0.15; // Paddle width as a percentage of canvas width
     return {
       ball: {
-        position: { x: canvasSize.width / 2, y: canvasSize.height - 100 },
+        position: { 
+          x: canvasSize.width / 2, 
+          y: canvasSize.height - 50 - BALL_CONFIG.radius 
+        },
         velocity: { x: 0, y: 0 },
         radius: BALL_CONFIG.radius,
       },
@@ -62,8 +65,6 @@ export const GameEngine: React.FC = () => {
       },
       bricks: generateBricks(canvasSize.width),
       score: 0,
-      lives: GAME_CONFIG.initialLives,
-      level: 1,
       status: 'start' as GameStatus,
     };
   });
@@ -113,19 +114,7 @@ export const GameEngine: React.FC = () => {
           newState.ball.velocity.y = -newState.ball.velocity.y;
         }
         if (wallCollisions.bottom) {
-          // Ball fell below paddle - lose a life
-          newState.lives -= 1;
-          ballLaunchedRef.current = false;
-          console.log("ssss", newState.lives, wallCollisions.bottom)
-          
-          if (newState.lives <= 0) {
-            newState.status = 'gameOver';
-          } else {
-            // Reset ball position
-            newState.ball.position = { x: canvasSize.width / 2, y: canvasSize.height - 100 };
-            newState.ball.velocity = { x: 0, y: 0 };
-          }
-          console.log("ssss", newState.lives, wallCollisions.bottom, newState.status)
+          newState.status = 'gameOver';
         }
 
         // Check paddle collision
@@ -160,8 +149,9 @@ export const GameEngine: React.FC = () => {
       } else {
         // Ball follows paddle when not launched
         newState.ball.position.x = newState.paddle.position.x + newState.paddle.dimensions.width / 2;
+        newState.ball.position.y = newState.paddle.position.y - newState.ball.radius;
       }
-      console.log("ssss", newState.lives)
+
       return newState;
     });
   }, [gameState.status, canvasSize, getKeyState]);
@@ -192,7 +182,10 @@ export const GameEngine: React.FC = () => {
     const newPaddleWidth = canvasSize.width * 0.15;
     setGameState({
       ball: {
-        position: { x: canvasSize.width / 2, y: canvasSize.height - 100 },
+        position: { 
+          x: canvasSize.width / 2, 
+          y: canvasSize.height - 50 - BALL_CONFIG.radius 
+        },
         velocity: { x: 0, y: 0 },
         radius: BALL_CONFIG.radius,
       },
@@ -206,8 +199,6 @@ export const GameEngine: React.FC = () => {
       },
       bricks: generateBricks(canvasSize.width),
       score: 0,
-      lives: GAME_CONFIG.initialLives,
-      level: 1,
       status: 'playing',
     });
   }, [canvasSize]);
@@ -233,8 +224,10 @@ export const GameEngine: React.FC = () => {
       <div className="w-full max-w-4xl">
         <GameHeader
           score={gameState.score}
-          lives={gameState.lives}
-          level={gameState.level}
+          gameStatus={gameState.status}
+          onPause={handlePause}
+          onStart={handleStart}
+          onRestart={handleRestart}
         />
         
         <div className="relative w-full h-full flex flex-col lg:flex-row justify-center items-center p-4 gap-4">
@@ -249,8 +242,6 @@ export const GameEngine: React.FC = () => {
           <GameMenu
             gameStatus={gameState.status}
             onStart={handleStart}
-            onPause={handlePause}
-            onRestart={handleRestart}
           />
         </div>
 
